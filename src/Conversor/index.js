@@ -3,6 +3,7 @@ import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from "r
 
 import api from "../services/api";
 
+//> convert?q=USD_PHP&compact=ultra&apiKey=c17c2b4f8ad53acf311a
 class Conversor extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,7 @@ class Conversor extends Component {
 
     async converter() {
         let de_para = this.state.moedaA + '_' + this.state.moedaB;
-        const response = await api.get(`currency/${de_para}?token=6006|39tajWlsj12hPCxPSTlHitvb0lqgBA3Q`);
+        const response = await api.get(`convert?q=${de_para}&compact=ultra&apiKey=c17c2b4f8ad53acf311a`);
         let cotacao = response.data[de_para];
 
         let resultado = (cotacao * parseFloat(this.state.moedaB_valor));
@@ -26,6 +27,7 @@ class Conversor extends Component {
         this.setState({
             valorConvertido: resultado.toFixed(2)
         });
+        // fecha teclado
         Keyboard.dismiss();
     }
     render() {
@@ -95,4 +97,3 @@ const styles = StyleSheet.create({
 });
 
 export default Conversor;
-//https://api.invertexto.com/v1/currency/USD_BRL?token=6006|39tajWlsj12hPCxPSTlHitvb0lqgBA3Q <Comversor moedaA='USD' moedaB='BRL'/>
